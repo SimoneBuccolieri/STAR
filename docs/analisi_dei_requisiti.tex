@@ -1,0 +1,195 @@
+\pdfminorversion=4
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,latexsym,amsmath}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\begin{document}
+
+\section{Analisi dei Requisiti}
+
+Questa sezione riassume i requisiti informativi richiesti dal sistema da sviluppare. 
+L'obiettivo è descrivere i concetti principali, le loro caratteristiche rilevanti e 
+le relazioni che intercorrono tra essi.
+
+\subsection*{Aeroporti}
+Ogni aeroporto è identificato da un codice internazionale e contiene le seguenti informazioni:
+\begin{itemize}
+    \item codice IATA;
+    \item nome;
+    \item città in cui si trova;
+    \item coordinate GPS;
+    \item numero di piste disponibili.
+    \item numero di voli giornalieri.
+\end{itemize}
+Gli aeroporti si suddividono in tre categorie (gerarchia totale e disgiunta):
+\begin{itemize}
+    \item \textbf{Hub Internazionale}, caratterizzato dal numero di terminal presenti;
+    \item \textbf{Aeroporto Regionale}, che presenta limitazioni operative, quali la lunghezza massima della pista e l'eventuale possibilità di operare in orario notturno;
+    \item \textbf{Base Militare}, con codice NATO e livello minimo di sicurezza, oltre all'applicazione di specifici protocolli di sicurezza.
+\end{itemize}
+Un aeroporto può inoltre possedere diversi gate, che rappresentano i punti fisici di imbarco.
+
+\subsection*{Aerei}
+Ogni aereo è identificato da una matricola univoca e contiene:
+\begin{itemize}
+    \item data di immatricolazione;
+    \item ore di volo accumulate.
+\end{itemize}
+Gli aerei appartengono a una gerarchia totale e sovrapposta, suddivisa in:
+\begin{itemize}
+    \item \textbf{Aereo di Linea}, dotato di rete Wi-Fi e configurazioni interne dedicate al trasporto passeggeri;
+    \item \textbf{Aereo Cargo}, caratterizzato dal peso massimo di carico supportato;
+    \item \textbf{Aereo Privato}, gestito per conto di un proprietario specifico, con eventuali servizi dedicati;
+    \item \textbf{Aereo Militare}, utilizzato in operazioni governative, con un codice missione e un ente operativo.
+\end{itemize}
+Un aereo può svolgere contemporaneamente più ruoli (ad esempio: cargo privato, cargo militare).
+
+\subsection*{Personale}
+Il personale rappresenta tutte le persone che operano nel contesto aeroportuale. 
+Per ciascun dipendente sono registrati:
+\begin{itemize}
+    \item identificativo univoco;
+    \item nome e cognome;
+    \item data di nascita;
+    \item data di assunzione.
+\end{itemize}
+Il personale appartiene a una gerarchia parziale e disgiunta:
+\begin{itemize}
+    \item \textbf{Pilota}, con numero di licenza, ore di volo e data dell'ultima visita medica;
+    \item \textbf{Controllore di Volo}, con livello e scadenza delle certificazioni abilitative;
+    \item \textbf{Manutentore}, con qualifica tecnica e responsabilità di interventi e certificazioni.
+\end{itemize}
+
+\subsection*{Voli}
+Il volo rappresenta il concetto centrale del sistema. Ogni volo è identificato da un id univoco e registra:
+\begin{itemize}
+    \item codice del volo;
+    \item data e ora programmata di partenza;
+    \item data e ora effettiva di partenza;
+    \item stato operativo (programmato, in corso, atterrato, cancellato);
+\end{itemize}
+Il personale di bordo è gestito tramite la relazione di \textit{Equipaggio}, mentre i controllori di volo supervisionano le fasi critiche tramite la relazione \textit{Monitoraggio}.  
+Ogni volo può prenotare specifiche fasce orarie per il decollo e l'atterraggio, 
+tracciare i propri dati di telemetria tramite log dedicati e viene associato a una 
+rotta pianificata. Un aereo esegue uno specifico volo.
+
+\subsection*{Log di Transito}
+I log di transito rappresentano i dati telemetrici generati durante un volo.  
+Ogni rilevazione è associata a un singolo volo e a un istante temporale, e contiene 
+informazioni quali altitudine e velocità.  
+La gerarchia dei log è totale e disgiunta:
+\begin{itemize}
+    \item \textbf{Log Sensore GPS}, contenente latitudine e longitudine;
+    \item \textbf{Log Dati di Volo}, con livello carburante, temperatura e pressione;
+    \item \textbf{Log Errori}, con codice errore, messaggio e livello di severità.
+\end{itemize}
+
+\subsection*{Fascia Oraria}
+Le fasce orarie rappresentano gli slot temporali gestiti dai singoli aereoporti destinati alle operazioni di decollo e atterraggio.  
+Ogni fascia oraria contiene:
+\begin{itemize}
+    \item identificativo dello slot;
+    \item orario di inizio e fine;
+    \item tipologia dello slot.
+\end{itemize}
+I voli possono prenotare fasce di decollo e fasce di atterraggio distinte.
+
+\subsection*{Rotta Pianificata}
+Una rotta pianificata descrive un percorso standard e contiene:
+\begin{itemize}
+    \item identificativo della rotta;
+    \item nome descrittivo;
+    \item durata stimata;
+    \item distanza;
+    \item consumo previsto di carburante.
+\end{itemize}
+Ogni volo segue una specifica rotta.
+
+\subsection*{Container}
+I container rappresentano le unità di carico utilizzate per il trasporto merci.  
+Per ciascun container sono registrati:
+\begin{itemize}
+    \item codice identificativo;
+    \item peso della tara;
+    \item tipologia.
+\end{itemize}
+Sono utilizzati sia per il trasporto tramite aerei cargo, sia per la registrazione delle 
+merci imbarcate su un volo.
+
+\subsection*{Classe Passeggeri e Servizi}
+La classe passeggeri rappresenta una categoria di servizio a bordo degli aerei di linea, 
+caratterizzata da:
+\begin{itemize}
+    \item identificativo della classe;
+    \item spazio per le gambe.
+\end{itemize}
+A ciascuna classe sono associati eventuali \textit{Servizi Aggiuntivi}, ciascuno identificato da:
+\begin{itemize}
+    \item nome del servizio;
+    \item classe a cui appartiene.
+    \item descrizione.
+\end{itemize}
+
+\subsection*{Tipo di Aereo e Componenti}
+Il tipo di aereo (modello) fornisce informazioni tecniche:
+\begin{itemize}
+    \item codice del modello;
+    \item costruttore;
+    \item autonomia;
+    \item velocità di crociera.
+\end{itemize}
+Ogni modello può essere dotato di componenti tecnici specifici (entità debole), 
+ciascuno caratterizzato da un numero di parte e una descrizione.
+
+\subsection*{Compagnia Aerea}
+Le compagnie aeree operano negli aeroporti e sono descritte da:
+\begin{itemize}
+    \item codice identificativo;
+    \item nome;
+    \item nazionalità;
+    \item sito web.
+\end{itemize}
+Una compagnia può possedere diversi aerei e avere uno o più gate assegnati.
+
+\subsection*{Gate}
+I gate rappresentano i punti fisici di imbarco e sbarco presenti esclusivamente negli 
+\textit{Hub Internazionali}. 
+Si tratta di un'entità debole, poiché la loro esistenza dipende dall'hub cui appartengono.
+
+Ogni gate registra:
+\begin{itemize}
+    \item numero del gate (univoco solo all'interno dello stesso hub);
+    \item piano in cui si trova il gate;
+    \item presenza o meno del tunnel di imbarco (jetbridge).
+\end{itemize}
+
+Alcuni gate possono essere assegnati a specifiche compagnie aeree per l’utilizzo operativo.
+
+
+
+\subsection*{Protocollo di Sicurezza}
+I protocolli di sicurezza si applicano alle basi militari e rappresentano le procedure operative 
+obbligatorie da seguire. Ogni protocollo è caratterizzato da:
+\begin{itemize}
+    \item identificativo del protocollo;
+    \item nome;
+    \item descrizione.
+\end{itemize}
+Le basi militari possono applicare uno o più protocolli, ciascuno con una data di inizio validità.
+
+\subsection*{Componenti}
+I componenti rappresentano gli elementi tecnici standard installabili su uno specifico modello di aereo.  
+Sono modellati come entità deboli, poiché identificati solo in relazione al tipo di aereo.
+
+Ogni componente registra:
+\begin{itemize}
+    \item numero di parte (univoco all'interno del modello);
+    \item descrizione tecnica;
+    \item tipo di aereo (modello) a cui appartiene.
+\end{itemize}
+I componenti definiscono la dotazione tecnica minima associata a ogni modello di aereo.
+
+
+\end{document}
