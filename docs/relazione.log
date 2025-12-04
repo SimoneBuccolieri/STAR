@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.3)  3 DEC 2025 19:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.3)  4 DEC 2025 21:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -427,35 +427,35 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 [2]
 
 [3]
-<schema_er.drawio.png, id=46, 2391.93625pt x 1893.0725pt>
+<schema_er.drawio.png, id=58, 2391.93625pt x 1893.0725pt>
 File: schema_er.drawio.png Graphic file (type png)
 <use schema_er.drawio.png>
-Package pdftex.def Info: schema_er.drawio.png  used on input line 215.
+Package pdftex.def Info: schema_er.drawio.png  used on input line 216.
 (pdftex.def)             Requested size: 426.79135pt x 337.76309pt.
 
 
 [4]
 
 [5 <./schema_er.drawio.png>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 232
+LaTeX Font Info:    Trying to load font information for U+msa on input line 233
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 232
+LaTeX Font Info:    Trying to load font information for U+msb on input line 233
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 23
-2.
+3.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Overfull \hbox (36.22627pt too wide) detected at line 265
+Overfull \hbox (36.22627pt too wide) detected at line 266
 []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p; v\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^ []
 \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p; v\OT1/cmr/m/n/10 ) = []  \OMS/cmsy/m/n/10 
 )  9\OML/cmm/m/it/10 t[][]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p; t\OT1/cmr/m/n/10
@@ -464,147 +464,147 @@ Overfull \hbox (36.22627pt too wide) detected at line 265
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--276
+Underfull \hbox (badness 10000) in paragraph at lines 277--277
 []\OT1/cmr/m/n/10 codice, nome, citt^^Ra,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--276
+Underfull \hbox (badness 10000) in paragraph at lines 277--277
 \OT1/cmr/m/n/10 nazione, co-or-di-nate,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--276
+Underfull \hbox (badness 10000) in paragraph at lines 277--277
 \OT1/cmr/m/n/10 nu-mero[]piste, nu-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--285
+Underfull \hbox (badness 10000) in paragraph at lines 286--286
 []\OT1/cmr/m/n/10 codice[]nato, liv-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 288--288
+Underfull \hbox (badness 10000) in paragraph at lines 289--289
 []\OT1/cmr/m/n/10 numero, pi-ano, tun-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--294
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
 []\OT1/cmr/m/n/10 matricola,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--294
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
 \OT1/cmr/m/n/10 data[]immatricolazione,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 303--303
+Underfull \hbox (badness 10000) in paragraph at lines 304--304
 []\OT1/cmr/m/n/10 nome[]proprietario,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--306
+Underfull \hbox (badness 10000) in paragraph at lines 307--307
 []\OT1/cmr/m/n/10 codice[]missione,
  []
 
 
-Underfull \hbox (badness 8094) in paragraph at lines 309--309
+Underfull \hbox (badness 8094) in paragraph at lines 310--310
 []\OT1/cmr/m/n/10 codice[]modello, costrut-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 309--309
+Underfull \hbox (badness 10000) in paragraph at lines 310--310
 \OT1/cmr/m/n/10 tore, au-tono-mia, ve-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 315--315
+Underfull \hbox (badness 10000) in paragraph at lines 316--316
 []\OT1/cmr/m/n/10 id, nome, cog-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 315--315
+Underfull \hbox (badness 10000) in paragraph at lines 316--316
 \OT1/cmr/m/n/10 nome, data[]nascita,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--318
+Underfull \hbox (badness 10000) in paragraph at lines 319--319
 []\OT1/cmr/m/n/10 numero[]licenza,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--318
+Underfull \hbox (badness 10000) in paragraph at lines 319--319
 \OT1/cmr/m/n/10 ore[]volo[]totali, ul-
  []
 
 
-Underfull \hbox (badness 1484) in paragraph at lines 321--321
+Underfull \hbox (badness 1484) in paragraph at lines 322--322
 []\OT1/cmr/m/n/10 livello[]certificazione, sca-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--327
+Underfull \hbox (badness 10000) in paragraph at lines 328--328
 []\OT1/cmr/m/n/10 id[]volo, codice[]volo,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--327
+Underfull \hbox (badness 10000) in paragraph at lines 328--328
 \OT1/cmr/m/n/10 data[]programmata,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 327--327
+Underfull \hbox (badness 10000) in paragraph at lines 328--328
 \OT1/cmr/m/n/10 data[]partenza[]effettiva,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 336--336
+Underfull \hbox (badness 10000) in paragraph at lines 337--337
 []\OT1/cmr/m/n/10 livello[]carburante, tem-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 336--336
+Underfull \hbox (badness 10000) in paragraph at lines 337--337
 \OT1/cmr/m/n/10 per-atura[]esterna, pres-
  []
 
 
-Underfull \hbox (badness 1635) in paragraph at lines 339--339
+Underfull \hbox (badness 1635) in paragraph at lines 340--340
 []\OT1/cmr/m/n/10 codice[]errore, mes-sag-gio,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 342--342
+Underfull \hbox (badness 10000) in paragraph at lines 343--343
 []\OT1/cmr/m/n/10 id[]slot, orario[]inizio,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--345
+Underfull \hbox (badness 10000) in paragraph at lines 346--346
 []\OT1/cmr/m/n/10 id[]rotta, nome[]rotta,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--348
+Underfull \hbox (badness 10000) in paragraph at lines 349--349
 []\OT1/cmr/m/n/10 codice[]container,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 354--354
+Underfull \hbox (badness 10000) in paragraph at lines 355--355
 []\OT1/cmr/m/n/10 nome[]servizio,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 354--354
+Underfull \hbox (badness 10000) in paragraph at lines 355--355
 \OT1/cmr/m/n/10 de-scrizione,
  []
 
 
-Underfull \hbox (badness 5403) in paragraph at lines 357--357
+Underfull \hbox (badness 5403) in paragraph at lines 358--358
 []\OT1/cmr/m/n/10 codice, nome, nazione,
  []
 
 
-Overfull \hbox (76.45273pt too wide) in paragraph at lines 271--361
+Overfull \hbox (76.45273pt too wide) in paragraph at lines 272--362
  [][] 
  []
 
@@ -616,97 +616,97 @@ Overfull \vbox (61.10562pt too high) has occurred while \output is active []
 
 
 [7]
-Underfull \hbox (badness 7064) in paragraph at lines 371--371
+Underfull \hbox (badness 7064) in paragraph at lines 372--372
 []\OT1/cmr/m/n/10 Un Hub In-ter-nazionale
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--374
+Underfull \hbox (badness 10000) in paragraph at lines 375--375
 []\OT1/cmr/m/n/10 BaseMilitare, Pro-to-col-
  []
 
 
-Underfull \hbox (badness 5345) in paragraph at lines 401--401
+Underfull \hbox (badness 5345) in paragraph at lines 402--402
 []\OT1/cmr/m/n/10 Un con-trol-lore su-per-vi-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--404
+Underfull \hbox (badness 10000) in paragraph at lines 405--405
 []\OT1/cmr/m/n/10 ControlloreVolo, Aero-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--405
+Underfull \hbox (badness 10000) in paragraph at lines 405--406
 []\OT1/cmr/m/n/10 settore, data[]fine,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 410--411
+Underfull \hbox (badness 10000) in paragraph at lines 411--412
 []\OT1/cmr/m/n/10 stato[]ticket,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--414
+Underfull \hbox (badness 10000) in paragraph at lines 414--415
 []\OT1/cmr/m/n/10 peso[]registrato,
  []
 
 
-Underfull \hbox (badness 1478) in paragraph at lines 416--416
+Underfull \hbox (badness 1478) in paragraph at lines 417--417
 \OT1/cmr/m/n/10 trasportati da un aereo
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 416--417
+Underfull \hbox (badness 10000) in paragraph at lines 417--418
 []\OT1/cmr/m/n/10 data[]carico, po-
  []
 
 
-Underfull \hbox (badness 1648) in paragraph at lines 419--419
+Underfull \hbox (badness 1648) in paragraph at lines 420--420
 []\OT1/cmr/m/n/10 Una classe passeg-geri ^^Re
  []
 
 
-Underfull \hbox (badness 2103) in paragraph at lines 419--419
+Underfull \hbox (badness 2103) in paragraph at lines 420--420
 []\OT1/cmr/m/n/10 AereoDiLinea, ClasseP-a-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--426
+Underfull \hbox (badness 10000) in paragraph at lines 426--427
 []\OT1/cmr/m/n/10 data[]conseguimento,
  []
 
 
-Overfull \hbox (6.77254pt too wide) in paragraph at lines 434--434
+Overfull \hbox (6.77254pt too wide) in paragraph at lines 435--435
 []\OT1/cmr/m/n/10 CertificazioneManutenzione| 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 440--440
+Underfull \hbox (badness 10000) in paragraph at lines 441--441
 []\OT1/cmr/m/n/10 ClassePasseggeri,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--443
+Underfull \hbox (badness 10000) in paragraph at lines 444--444
 []\OT1/cmr/m/n/10 RottaPianificata, Aero-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 446--446
+Underfull \hbox (badness 10000) in paragraph at lines 447--447
 []\OT1/cmr/m/n/10 RottaPianificata, Aero-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 449--449
+Underfull \hbox (badness 10000) in paragraph at lines 450--450
 []\OT1/cmr/m/n/10 Una fas-cia oraria ^^Re
  []
 
 
-Underfull \hbox (badness 3068) in paragraph at lines 449--449
+Underfull \hbox (badness 3068) in paragraph at lines 450--450
 \OT1/cmr/m/n/10 disponi-bile in un aero-
  []
 
 
-Overfull \hbox (76.45273pt too wide) in paragraph at lines 366--453
+Overfull \hbox (76.45273pt too wide) in paragraph at lines 367--454
  [][] 
  []
 
@@ -717,13 +717,13 @@ Overfull \vbox (48.70563pt too high) has occurred while \output is active []
 
 [8]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 463.
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 464.
 
 
 [9]
 
 [10]
-Overfull \hbox (17.38887pt too wide) in paragraph at lines 694--698
+Overfull \hbox (17.38887pt too wide) in paragraph at lines 701--705
 \OT1/cmr/m/n/10 L'analisi in-dica chiara-mente che con-viene man-tenere l'attri
 buto ri-don-dante \OT1/cmr/m/it/10 peso[]totale[]carico \OT1/cmr/m/n/10 nell'en
 tit^^Ra
@@ -732,41 +732,91 @@ tit^^Ra
 
 
 [11]
-<schema_er_ristrutturato.drawio.png, id=115, 2391.93625pt x 1893.0725pt>
+<schema_er_ristrutturato.drawio.png, id=127, 2391.93625pt x 1893.0725pt>
 File: schema_er_ristrutturato.drawio.png Graphic file (type png)
 <use schema_er_ristrutturato.drawio.png>
 Package pdftex.def Info: schema_er_ristrutturato.drawio.png  used on input line
- 760.
+ 800.
 (pdftex.def)             Requested size: 426.79135pt x 337.76309pt.
 
 
 [12]
-Overfull \hbox (0.48645pt too wide) in paragraph at lines 798--800
-[]\OT1/cmr/bx/n/10 AereoMilitare\OT1/cmr/m/n/10 ($[]$, codice[]missione, ente[]
-operativo)   ma-tri-cola $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Aereo(matricola) 
-
+Overfull \hbox (47.17863pt too wide) in paragraph at lines 844--846
+[]\OT1/cmr/bx/n/10 Aereo\OT1/cmr/m/n/10 ($[]$, data[]immatricolazione, ore[]vol
+o[]accumulate, id[]tipo)   id[]tipo $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 TipoAe
+reo(id[]tipo) 
  []
 
 
-Overfull \hbox (10.2456pt too wide) in paragraph at lines 806--808
-[]\OT1/cmr/bx/n/10 Volo\OT1/cmr/m/n/10 ($[]$, codice[]volo, data[]ora[]programm
-ata, data[]ora[]effettiva*, stato, peso[]totale[]carico,
+Overfull \hbox (5.48647pt too wide) in paragraph at lines 856--858
+[]\OT1/cmr/bx/n/10 AereoMilitare\OT1/cmr/m/n/10 ($[]$, codice[]missione*, ente[
+]operativo)   ma-tri-cola $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Aereo(matricola)
+ 
  []
 
 
 
 [13 <./schema_er_ristrutturato.drawio.png>]
-Overfull \hbox (42.99095pt too wide) in paragraph at lines 835--837
+Overfull \hbox (42.99095pt too wide) in paragraph at lines 875--877
 []\OT1/cmr/bx/n/10 Pilota\OT1/cmr/m/n/10 ($[]$, nu-mero[]licenza, ore[]volo, ul
 -tima[]visita)   id[]personale $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Per-son-ale
 (id[]personale) 
  []
 
 
-Overfull \hbox (34.98474pt too wide) in paragraph at lines 872--874
-[]\OT1/cmr/bx/n/10 ServizioAggiuntivo\OT1/cmr/m/n/10 ($[]$, $[]$, de-scrizione)
-   id[]classe $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 ClasseP-a-sseg-geri(id[]clas
-se) 
+Overfull \hbox (0.78636pt too wide) in paragraph at lines 884--887
+[]\OT1/cmr/bx/n/10 AbilitazioneVolo\OT1/cmr/m/n/10 ($[]$, $[]$, data[]conseguim
+ento, data[]scadenza)   id[]personale
+ []
+
+
+Overfull \hbox (23.06729pt too wide) in paragraph at lines 890--893
+[]\OT1/cmr/bx/n/10 RottaPianificata\OT1/cmr/m/n/10 ($[]$, nome, dis-tanza, du-r
+ata[]stimata, con-sumo[]previsto, aero-porto[]origine,
+ []
+
+
+Overfull \hbox (10.2456pt too wide) in paragraph at lines 899--909
+[]\OT1/cmr/bx/n/10 Volo\OT1/cmr/m/n/10 ($[]$, codice[]volo, data[]ora[]programm
+ata, data[]ora[]effettiva*, stato, peso[]totale[]carico,
+ []
+
+
+Overfull \hbox (2.25885pt too wide) in paragraph at lines 899--909
+\OT1/cmr/m/n/10 ma-tri-cola $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Aereo(matricol
+a)   aero-porto[]partenza $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Aero-porto(codic
+e)   aero-porto[]arrivo
+ []
+
+
+Overfull \hbox (14.15457pt too wide) in paragraph at lines 912--915
+[]\OT1/cmr/bx/n/10 Equipaggio\OT1/cmr/m/n/10 ($[]$, $[]$, ruolo, ore[]servizio)
+   id[]personale $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Per-son-ale(id[]personale
+)
+ []
+
+
+Overfull \hbox (13.62677pt too wide) in paragraph at lines 916--919
+[]\OT1/cmr/bx/n/10 Monitoraggio\OT1/cmr/m/n/10 ($[]$, $[]$, fase[]volo)   id[]p
+ersonale $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Con-trol-loreVolo(id[]personale)
+ []
+
+
+Overfull \hbox (12.80733pt too wide) in paragraph at lines 928--931
+[]\OT1/cmr/bx/n/10 ImbarcoMerce\OT1/cmr/m/n/10 ($[]$, $[]$, peso[]registrato, d
+ata[]imbarco, con-tenuto*)   id[]volo
+ []
+
+
+Overfull \hbox (3.87529pt too wide) in paragraph at lines 940--943
+[]\OT1/cmr/bx/n/10 Configurazione\OT1/cmr/m/n/10 ($[]$, $[]$, nu-mero[]posti)  
+ ma-tri-cola $\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Aere-oDi-Linea(matricola)
+ []
+
+
+Overfull \hbox (6.13422pt too wide) in paragraph at lines 955--957
+[]\OT1/cmr/bx/n/10 LogErrori\OT1/cmr/m/n/10 ($[]$, id[]volo, times-tamp, al-ti-
+tu-dine, ve-locita, codice[]errore, mes-sag-gio*, severita)
  []
 
 
@@ -783,16 +833,16 @@ L3 programming layer <2025-01-18>
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `relazione.out' has not changed.
-(rerunfilecheck)             Checksum: 4B0BD848440957D81F6F18432DAA9889;721.
+(rerunfilecheck)             Checksum: 6BE5B925EE3DEEF4EB8FF20B93E3FE39;1125.
  ) 
 Here is how much of TeX's memory you used:
- 10429 strings out of 473190
- 159133 string characters out of 5715800
- 589154 words of memory out of 5000000
- 33494 multiletter control sequences out of 15000+600000
+ 10435 strings out of 473190
+ 159203 string characters out of 5715800
+ 589155 words of memory out of 5000000
+ 33497 multiletter control sequences out of 15000+600000
  563580 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,11n,79p,3179b,514s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,3186b,512s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
@@ -806,9 +856,9 @@ al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local
 /texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/
 texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/t
 exlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on relazione.pdf (15 pages, 649462 bytes).
+Output written on relazione.pdf (15 pages, 654793 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 59 named destinations out of 1000 (max. 500000)
- 43 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 222 PDF objects out of 1000 (max. 8388607)
+ 62 named destinations out of 1000 (max. 500000)
+ 67 words of extra memory for PDF output out of 10000 (max. 10000000)
 
