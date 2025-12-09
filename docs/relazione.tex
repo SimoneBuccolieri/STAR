@@ -1,0 +1,794 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,latexsym,amsmath}
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[scaled=0.92]{helvet}
+\renewcommand\familydefault{\sfdefault}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\begin{document}
+\section{Abstract}
+Il progetto \textbf{STAR} (Sistema di Tracciamento dello Spazio Aereo e Rotte) è un Sistema Informativo pensato per gestire e monitorare, in modo integrato, il traffico aereo sia civile che militare. Questo sistema segue tutte le fasi operative di un volo, dalla pianificazione della rotta e prenotazione degli slot negli aeroporti, fino alla storicizzazione delle operazioni effettuate e alla gestione dei dati telemetrici
+
+
+La banca dati si concentra su tre aree principali:
+
+\begin{itemize}
+    \item \textbf{Infrastruttura e Logistica}: Qui si gestiscono gli aeroporti, sia hub che regionali e militari, i gate e tutta la complessa logistica di carico merce (container) e passeggeri.
+    
+    \item \textbf{Flotta e Risorse Umane}: Questo aspetto si occupa in dettaglio degli aeromobili, con tutte le loro configurazioni, e del personale specializzato come piloti, controllori e manutentori, tenendo traccia delle loro abilitazioni, turni e certificazioni.
+
+    
+    \item \textbf{Sicurezza e Monitoraggio}: Archiviazione dei log operativi (rilevazioni GPS campionate, parametri tecnici e messaggi di errore) finalizzata alla manutenzione predittiva e alla gestione dei protocolli di sicurezza per le aree militari.
+\end{itemize}
+
+L'obiettivo è quello di supportare le decisioni per ottimizzare le risorse aeroportuali e garantire una completa tracciabilità degli eventi di volo e di manutenzione.
+
+
+\section{Analisi dei Requisiti}
+
+Questa sezione descrive i concetti informativi rilevanti del sistema e gli attributi principali
+associati a ciascuna entità.
+
+\subsection*{Aeroporti}
+Un aeroporto è identificato da un codice IATA e presenta: nome, città, nazione, coordinate GPS,
+numero di piste e numero di voli giornalieri. Si registrano inoltre le informazioni relative ai
+controllori di volo assegnati (settore, data e ora di inizio e fine turno). Gli aeroporti sono classificati in
+Hub Internazionali, con numero di terminal; Aeroporti Regionali, con lunghezza massima della
+pista e possibilità di operare in orario notturno; Basi Militari, con codice NATO e livello minimo
+di sicurezza. Gli Hub possono includere più gate, mentre gli aeroporti Regionali possono avere limitazioni sulla tipologia di aereo
+
+\subsection*{Aerei}
+Ogni aereo è identificato da una matricola e registra data di immatricolazione e ore totali di volo.
+Gli aerei sono classificati in Aerei di Linea (con servizi come Wi-Fi e intrattenimento), Aerei Cargo
+(con un peso massimo di carico), Aerei Privati (con proprietario e servizi dedicati) e Aerei
+Militari (con codice missione ed ente operativo).
+
+\subsection*{Personale}
+Per ogni membro del personale sono registrati identificativo, nome, cognome, data di nascita e
+data di assunzione. Le specializzazioni includono: il Pilota, con numero di licenza, ore di volo,
+ultima visita e abilitazioni di volo per i vari modelli di aereo (le quali includono la data di conseguimento e la data di scadenza);
+Controllore di Volo, che possiede il livello di certificazione e la scadenza dell’abilitazione; 
+e il Manutentore, con qualifica e possibilità di effettuare manutenzioni e quindi rilasciare certificati di avvenuta manutenzione. Questi certificati hanno una data di scadenza.
+I Manutentori inoltre, gestiscono gli alert generati dai log di Errore, i quali presentano uno stato (creato, risolto, ..) e una data di presa in carico.
+\subsection*{Voli}
+Ogni volo è descritto mediante identificativo, codice del volo, data e ora di partenza programmata,
+data e ora di partenza effettiva, stato operativo e peso totale del carico. Si registrano i membri
+dell’equipaggio (ruolo, ore di servizio), le fasi di volo monitorate dai controllori, le fasce orarie prenotate
+per decollo e atterraggio e la rotta pianificata. Ogni volo è eseguito da un singolo aereo.
+
+\subsection*{Log di Transito}
+Per ogni rilevazione telemetrica sono registrati identificativo del volo che ha generato il Log, timestamp, altitudine e velocità.
+Sono previsti tre tipi di log: rilevazioni GPS (latitudine e longitudine), dati di volo (livello
+carburante, temperatura, pressione) ed errori (codice, messaggio e severità), utilizzati nella gestione
+operativa della manutenzione.
+
+\subsection*{Fascia Oraria}
+Ogni slot operativo comprende l'orario di inizio e fine e tipologia. I voli possono
+prenotare separatamente gli slot di decollo e di atterraggio. Ogni fascia oraria si intende di uno specifico aeroporto, classificata tramite identificativo dello slot.
+
+\subsection*{Rotta Pianificata}
+Una rotta pianificata è descritta da identificativo, nome, durata stimata, distanza e consumo
+previsto di carburante, oltre all'aeroporto di origine e di destinazione.
+
+\subsection*{Container}
+Ogni container registra codice identificativo, peso tara e tipologia. Si conservano inoltre le
+informazioni relative alla data di carico e ai dati relativi al peso registrato e
+al contenuto quando imbarcato su un volo.
+
+\subsection*{Classe Passeggeri e Servizi}
+Le classi passeggeri presentano un identificativo, il nome commerciale (es. Economy), la priorità di imbarco, e una descrizione. In ogni configurazione di aereo di linea, hanno un numero di posti e lo spazio per le gambe offerto. Ogni classe Passeggeri può offrire un servizio aggiuntivo, compreso di nome e descrizione.
+
+\subsection*{Tipo di Aereo e Componenti}
+Ogni modello di aereo presenta codice, costruttore, autonomia e velocità di crociera. I componenti
+tecnici associati a ciascun modello sono descritti tramite numero di parte e descrizione.
+
+\subsection*{Compagnia Aerea}
+Ogni compagnia aerea è caratterizzata da codice identificativo, nome, nazionalità e sito web. Può
+possedere più aerei e avere uno o più gate assegnati.
+
+\subsection*{Gate}
+I gate degli hub internazionali sono descritti tramite numero, piano e presenza del tunnel di
+imbarco. Possono essere assegnati a specifiche compagnie aeree.
+
+\subsection*{Protocollo di Sicurezza}
+Ogni protocollo applicabile alle basi militari registra identificativo, nome e descrizione, oltre alla
+data di inizio validità.
+
+
+\section{Progettazione concettuale}
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=\textwidth]{schema_er.drawio.png}
+    \caption{Diagramma Entità-Relazione del progetto STAR}
+    \label{fig:schema_er}
+\end{figure}
+
+
+La Figura 1 mostra il diagramma Entità-Relazione (E-R) creato sulla base dell'analisi dei requisiti. Il sistema rappresenta una rete aeroportuale, suddivisa in tre categorie: Hub Internazionali, Aeroporti Regionali e Basi Militari. Questa classificazione crea una gerarchia totale e disgiunta, poichè ogni aeroporto deve appartenere esclusivamente a una di queste categorie. Gli Hub Internazionali includono diversi Gate, che sono modellati come entità deboli e identificati dalla coppia (codice\_IATA, numero). Le specifiche tecniche di ciascun aereo sono gestite dall'entità Tipo Aereo, che rappresenta il catalogo degli aerei del sistema e sono organizzati tramite una generalizzazione totale e sovrapposta, con le categorie Aerei di Linea, Aerei Cargo, Aerei Privati e Aerei Militari. Un velivolo può avere più ruoli contemporaneamente, come nel caso di configurazioni miste passeggeri-cargo o di freighter usati in ambito militare. Gli Aerei di Linea hanno anche una Configurazione interna, definita rispetto all'entità Classe Passeggeri, che rappresenta le varie categorie di servizio disponibili a bordo (ad esempio, Economy o Business). A ciascuna classe possono essere associati uno o più Servizi Aggiuntivi, modellati come entità deboli indicate dalla coppia (id\_classe, nome\_servizio). L'entità Volo rappresenta la gestione di tutti i singoli voli, ed è l'evento centrale del sistema. Le relazioni di Partenza e Arrivo collegano ogni volo rispettivamente all'aeroporto di partenza e a quello di destinazione. Anche se la rotta pianificata indica l'itinerario previsto, mantenere relazioni dirette sul volo è essenziale per registrare l'evento reale, assicurando la coerenza del dato anche in caso di variazioni operative (come dirottamenti o atterraggi di emergenza) o per voli specifici (militari o privati) che non seguono una rotta standard. Ogni volo è effettuato da un singolo aereo tramite la relazione Esegue ed è sorvegliato da uno o più Controllori di Volo attraverso la relazione Monitoraggio. L'entità Personale descrive le risorse umane coinvolte nelle operazioni aeroportuali ed è organizzata in una generalizzazione parziale e disgiunta nelle sottoclassi Pilota, Controllore di Volo e Manutentore. Durante un volo, si registrano i Log di Transito, cioè entità deboli identificate dalla coppia (id\_volo, timestamp\_rilevazione). Questa gerarchia è totale e disgiunta e comprende tre tipi di log: Log Sensore GPS, Log Dati di Volo e Log Errori. I log d'errore possono generare notifiche per i manutentori tramite la relazione Gestione Alert. Per quanto riguarda la gestione delle merci, l'entità Container rappresenta le unità di carico trasportate nel sistema. La relazione Imbarco Merce associa ogni container ai voli sui quali viene caricato, registrando peso e contenuto dell'operazione. L'entità Rotta Pianificata descrive i collegamenti standard tra aeroporti e viene associata ai voli tramite la relazione Assegnazione Rotta. La Tabella 1 riassume tutte le entità e relazioni illustrate nello schema E-R, indicando attributi e identificatori.
+
+\subsection*{Vincoli non rappresentabili nello schema E-R}
+
+Alcune regole del dominio non possono essere rappresentate direttamente nel diagramma
+E--R, ma costituiscono comunque vincoli fondamentali del sistema. Tra i principali:
+
+\begin{itemize}
+
+   \item Un aereo classificato come Militare non può essere posseduto da una compagnia aerea commerciale. Lo schema consente la relazione Possesso con qualsiasi aereo, ma il dominio richiede il vincolo:
+\[
+a \in AereoMilitare \Rightarrow \neg \exists c \, Possesso(c, a)
+\]
+
+\item Un container può essere imbarcato su un volo solo se il peso registrato non supera la capacità di carico dell’aereo che esegue quel volo. Questo vincolo incrocia attributi e relazioni diverse (ImbarcoMerce, Esegue, AereoCargo) ed è quindi non rappresentabile graficamente:
+\[
+ImbarcoMerce(c, v) \Rightarrow peso\_registrato(c, v) \leq peso\_carico\_max(Esegue(v))
+\]
+
+\item Un controllore di volo può monitorare un volo solo se è assegnato a un aeroporto coerente con quel volo. In particolare, se un controllore monitora un volo, deve presidiare almeno uno degli aeroporti di partenza o arrivo:
+\[
+Monitoraggio(p, v) \Rightarrow \exists a \, Presidio(p, a) \wedge (a = Partenza(v) \vee a = Arrivo(v))
+\]
+
+\item La gestione degli errori dipende dallo stato del ticket. In particolare, uno stato diverso da "non assegnato" richiede che esista almeno un manutentore associato tramite Gestione Alert. Il legame tra stato del log e presenza di un manutentore non è esprimibile nel solo schema E-R.
+
+\item Un membro dell’equipaggio può operare come Pilota solo se è abilitato al modello dell’aereo che esegue il volo. Questo vincolo incrocia Equipaggio, Pilota, AbilitazioneVolo, Esegue e TipoAereo:
+\[
+Equipaggio(p, v) \wedge Ruolo(p, v) = "Pilota" \Rightarrow \exists t \, AbilitazioneVolo(p, t) \wedge t = TipoAereo(Esegue(v))
+\]
+
+\item \textbf{Coerenza tra Rotta e Volo.} Se a un volo è assegnata una rotta pianificata, gli aeroporti di partenza e arrivo registrati nel volo devono coincidere con l'origine e la destinazione previste dalla rotta (salvo eccezioni operative gestite a livello applicativo).
+\[
+AssegnazioneRotta(v, r) \Rightarrow (Partenza(v) = Origine(r)) \wedge (Arrivo(v) = Destinazione(r))
+\]
+
+\item \textbf{Coerenza Slot-Aeroporto.} Un volo può prenotare uno slot (di decollo o atterraggio) solo se tale fascia oraria appartiene all'aeroporto previsto per quell'operazione. Ad esempio, per il decollo:
+\[
+PrenotazioneDecollo(v, s) \wedge FasciaOraria(s, a) \Rightarrow Partenza(v) = a
+\]
+
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\
+\hline
+
+Aeroporto & Struttura aeroportuale & codice\_IATA, nome, città, nazione, coordinate, numero\_piste, numero\_voli\_giornalieri& codice\_IATA\\
+\hline
+
+HubInternazionale & Tipo di aeroporto & numero\_terminal & \\
+\hline
+
+Regionale & Tipo di aeroporto & lunghezza\_pista\_max, notturno& \\
+\hline
+
+BaseMilitare & Aeroporto militare & codice\_nato, livello\_sicurezza& \\
+\hline
+
+Gate& Punto di imbarco & numero, piano, tunnel\_imbarco& numero, Relazione "Possiede"\\
+\hline
+
+ProtocolloSicurezza & Procedure militari & id, nome, descrizione& id\\
+\hline
+
+Aereo & Velivolo & matricola, data\_immatricolazione, ore\_volo\_accumulate& matricola\\
+\hline
+
+AereoDiLinea & Sottotipo aereo & wifi, intrattenimento& \\
+\hline
+
+AereoCargo & Sottotipo aereo & peso\_carico\_max& \\
+\hline
+
+AereoPrivato & Sottotipo aereo & nome\_proprietario, servizio& \\
+\hline
+
+AereoMilitare & Sottotipo aereo & codice\_missione, ente\_operativo& \\
+\hline
+
+TipoAereo & Catalogo modelli & codice\_modello, costruttore, autonomia, velocita\_crociera& codice\_modello\\
+\hline
+
+Componente& Componenti tecnici standard & numero, descrizione & numero, Relazione "Dotazione"\\
+\hline
+
+Personale & Risorse umane & id, nome, cognome, data\_nascita, data\_assunzione& id\\
+\hline
+
+Pilota & Sottoclasse personale & numero\_licenza, ore\_volo\_totali, ultima\_visita\_medica& \\
+\hline
+
+ControlloreVolo & Sottoclasse personale & livello\_certificazione, scadenza\_abilitazione& \\
+\hline
+
+Manutentore & Sottoclasse personale & qualifica& \\
+\hline
+
+Volo & Evento operativo & id\_volo, codice\_volo, data\_programmata, data\_partenza\_effettiva, stato, peso\_totale\_carico& id\_volo\\
+\hline
+
+LogTransito& Rilevazioni telemetriche & timestamp\_rilevazione, altitudine, velocità& timestamp\_rilevazione, Relazione "Traccia"\\
+\hline
+
+LogGPS & Sottotipo log & latitudine, longitudine& \\
+\hline
+
+LogDatiVolo & Sottotipo log & livello\_carburante, temperatura\_esterna, pressione\_cabina& \\
+\hline
+
+LogErrori & Sottotipo log & codice\_errore, messaggio, livello\_severità& \\
+\hline
+
+FasciaOraria & Slot aeroportuali & id\_slot, orario\_inizio, orario\_fine, tipo& id\_slot\\
+\hline
+
+RottaPianificata & Percorso standard & id\_rotta, nome\_rotta, consumo\_carburante, distanza, durata\_stimata& id\_rotta\\
+\hline
+
+Container & Unità di carico & codice\_container, peso\_tara, tipologia& codice\_container\\
+\hline
+
+ClassePasseggeri & Catalogo Classi di viaggio & id\_classe, nome\_commerciale, priorità\_imbarco, descrizione& id\_classe\\
+\hline
+
+ServizioAggiuntivo& Servizi associati alle classi & nome\_servizio, descrizione& nome\_servizio, Relazione "Offre"\\
+\hline
+
+CompagniaAerea & Operatore aeroportuale & codice, nome, nazione, sito\_web& codice\\
+\hline
+
+\end{tabular}
+\caption{Entità individuate dall’analisi dei requisiti, con attributi e identificatori.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+\hline
+\textbf{Relazione} & \textbf{Descrizione} & \textbf{Componente} & \textbf{Attributi} \\
+\hline
+
+Possiede & Un Hub Internazionale possiede uno o più gate & Hub internazionale, Gate & -- \\
+\hline
+
+Applica & Una base militare applica protocolli di sicurezza & BaseMilitare, ProtocolloSicurezza & data\_inizio\_validità \\
+\hline
+
+DivietoOperativo & Un aeroporto regionale vieta certi tipi di aereo & Regionale, TipoAereo & -- \\
+\hline
+
+Esecuzione & Un aereo esegue un volo & Aereo, Volo & -- \\
+\hline
+
+Partenza & Un volo parte da un aeroporto & Volo, Aeroporto & -- \\
+\hline
+
+Arrivo & Un volo arriva in un aeroporto & Volo, Aeroporto & -- \\
+\hline
+
+AssegnazioneRotta & Una rotta viene associata a un volo & RottaPianificata, Volo & -- \\
+\hline
+
+PrenotazioneDecollo & Un volo prenota uno slot di decollo & Volo, FasciaOraria & -- \\
+\hline
+
+PrenotazioneAtterraggio & Un volo prenota uno slot di atterraggio & Volo, FasciaOraria & -- \\
+\hline
+
+Equipaggio & Piloti e assistenti operano su un volo & Personale, Volo & ruolo, ore\_servizio \\
+\hline
+
+Monitoraggio & Un controllore supervisiona un volo & ControlloreVolo, Volo & fase\_volo \\
+\hline
+
+Presidio & Un controllore è assegnato a un aeroporto & ControlloreVolo, Aeroporto & settore, data\_fine, data\_inizio \\
+\hline
+
+Traccia & Un volo genera log di transito & Volo, LogTransito & -- \\
+\hline
+
+GestioneAlert & Un manutentore gestisce un log di errore & Manutentore, LogErrori & stato\_ticket, data\_presa\_carico \\
+\hline
+
+ImbarcoMerce & Un container è imbarcato su un volo & Container, Volo & peso\_registrato, data\_imbarco, contenuto \\
+\hline
+
+Configurazione & Una classe passeggeri è configurata su un aereo di linea & AereoDiLinea, ClassePasseggeri & numero\_posti, spazio\_gambe \\
+\hline
+
+Dotazione & Componenti tecniche installate su un modello di aereo & TipoAereo, Componente & -- \\
+\hline
+
+AbilitazioneVolo & Un pilota è abilitato a un modello di aereo & Pilota, TipoAereo & data\_conseguimento, data\_scadenza \\
+\hline
+
+AssegnazioneGate & Una compagnia aerea ha uno o più gate assegnati & CompagniaAerea, Gate & -- \\
+\hline
+
+Possesso & Una compagnia possiede uno o più aerei & CompagniaAerea, Aereo & -- \\
+\hline
+
+CertificazioneManutenzione & Un manutentore certifica un aereo dopo un intervento & Manutentore, Aereo & data\_scadenza \\
+\hline
+
+Modello & Un aereo è associato a un modello tecnico & Aereo, TipoAereo & -- \\
+\hline
+
+Offre & Una classe passeggeri include un servizio aggiuntivo & ClassePasseggeri, ServizioAggiuntivo & -- \\
+\hline
+
+Origine & Una rotta pianificata ha un aeroporto di partenza & RottaPianificata, Aeroporto & -- \\
+\hline
+
+Destinazione & Una rotta pianificata ha un aeroporto di arrivo & RottaPianificata, Aeroporto & -- \\
+\hline
+
+Disponibilità & Una fascia oraria è disponibile in un aeroporto & FasciaOraria, Aeroporto & -- \\
+\hline
+
+\end{tabular}
+\caption{Relazioni individuate nello schema concettuale, con componenti e attributi.}
+\end{table}
+
+
+\section{Progettazione Logica}
+
+Nel paragrafo che segue, parleremo del processo di ristrutturazione dello schema concettuale. L’obiettivo principale è rendere la rappresentazione dei dati più efficace, eliminando i valori nulli che non servono e preparando lo schema per la traduzione nel formato relazionale. Iniziamo con un’analisi delle ridondanze nel modello, per capire quali elementi tenere e quali è meglio togliere. Dopo, ci occuperemo di rimuovere le generalizzazioni. Alla fine, presenteremo lo schema E-R ristrutturato in base a questi criteri.
+
+\subsection{Analisi delle Ridondanze}
+
+\subsubsection*{Ridondanza 1: \textit{numero\_voli\_giornalieri} in \texttt{Aeroporto}}
+L’attributo \textit{numero\_voli\_giornalieri} nell’entità \texttt{Aeroporto} 
+rappresenta il numero di voli (in partenza o in arrivo) associati ad uno specifico
+aeroporto in una determinata data. Tale informazione può essere ottenuta
+calcolando dinamicamente il numero di voli collegati tramite le relazioni
+\texttt{Partenza(Aeroporto,Volo)} e \texttt{Arrivo(Aeroporto,Volo)}.
+
+Tuttavia, il conteggio dei voli giornalieri comporta un costo elevato, poiché 
+ogni aeroporto può avere migliaia di voli al giorno. Per questo motivo 
+si valuta la convenienza di mantenere l’attributo ridondante
+\textit{NumeroVoliGiornalieri} rispetto al ricalcolo continuo tramite query.
+
+Consideriamo le seguenti operazioni tipiche:
+\begin{itemize}
+    \item \textbf{Operazione 1 (50 al giorno):} inserimento di un nuovo volo pianificato;
+    \item \textbf{Operazione 2 (10\,000 al giorno):} consultazione del numero giornaliero di voli
+    di un aeroporto.
+\end{itemize}
+
+I seguenti volumi sono considerati realistici per un sistema aeroportuale:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Concetto & Tipo & Volume \\
+\hline
+Aeroporto & E & 120 \\
+Volo & E & 80\,000 \\
+Partenza/Arrivo & R & 160\,000 \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Analisi con ridondanza}
+
+L’inserimento di un nuovo volo comporta:
+\begin{itemize}
+    \item la creazione dell’entità \texttt{Volo};
+    \item l’inserimento delle due relazioni \texttt{Partenza} e \texttt{Arrivo};
+    \item la lettura e l’aggiornamento dell’attributo ridondante \texttt{numero\_voli\_giornalieri}
+          nell’entità \texttt{Aeroporto}.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Volo & E & 1 & S $\times$ 50 \\
+Partenza & R & 1 & S $\times$ 50 \\
+Arrivo & R & 1 & S $\times$ 50 \\
+Aeroporto & E & 1 & L $\times$ 50 \\
+Aeroporto & E & 1 & S $\times$ 50 \\
+\hline
+\end{tabular}
+\caption{Operazione 1 con ridondanza: inserimento nuovo volo.}
+\end{table}
+
+Per la consultazione del numero di voli giornalieri:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Aeroporto & E & 1 & L $\times$ 10\,000 \\
+\hline
+\end{tabular}
+\caption{Operazione 2 con ridondanza: consultazione del numero giornaliero di voli.}
+\end{table}
+\[
+\text{Costo giornaliero} = 50 \times 9 + 10\,000 \times 1 = 450 + 10\,000 = 10\,450.
+\]
+
+\paragraph{Analisi senza ridondanza}
+
+In assenza dell’attributo ridondante, la consultazione giornaliera richiede 
+di contare i voli connessi tramite \texttt{Partenza} e \texttt{Arrivo}.  
+In media un aeroporto gestisce circa 800 voli al giorno.
+
+L’inserimento di un nuovo volo richiede soltanto la registrazione
+dell’entità \texttt{Volo} e delle relazioni \texttt{Partenza} e \texttt{Arrivo}:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Volo & E & 1 & S $\times$ 50 \\
+Partenza & R & 1 & S $\times$ 50 \\
+Arrivo & R & 1 & S $\times$ 50 \\
+\hline
+\end{tabular}
+\caption{Operazione 1 senza ridondanza.}
+\end{table}
+
+Per la consultazione:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Aeroporto & E & 1 & L $\times$ 10\,000 \\
+Partenza & R & 800 & L $\times$ 10\,000 \\
+Arrivo & R & 800 & L $\times$ 10\,000 \\
+\hline
+\end{tabular}
+\caption{Operazione 2 senza ridondanza: conteggio dei voli giornalieri.}
+\end{table}
+\[
+\text{Costo giornaliero} = 50 \times 6 + 10\,000 \times 1\,601 = 300 + 16\,010\,000 = 16\,010\,300.
+\]
+
+\paragraph{Conclusione.}  
+La consultazione quotidiana, pari a 10\,000 accessi, comporterebbe senza ridondanza
+circa $16$ milioni di letture, rendendo l'operazione estremamente costosa.  
+L’analisi suggerisce pertanto di \textbf{mantenere l’attributo ridondante numero\_voli\_giornalieri},
+che ottimizza sensibilmente le interrogazioni frequenti a scapito di un modesto 
+incremento nel costo di scrittura.
+
+\subsubsection*{Ridondanza 2: \textit{peso\_totale\_carico} in \texttt{Volo}}
+
+Il peso totale delle merci caricate su un volo è un valore derivabile dalla relazione
+\texttt{Imbarco\_Merce}. Per ogni coppia \((c,v)\) (container–volo), tale relazione
+registra il valore \textit{Peso\_Registrato}. Pertanto:
+
+\[
+\text{Peso\_Totale\_Carico}(v) = 
+\sum_{\,c \in \text{Container}(v)} \text{Peso\_Registrato}(c,v)
+\]
+
+Si valuta se tenere l'attributo ridondante \textit{Peso\_Totale\_Carico}
+nell'entità \texttt{Volo}, aggiornato a ogni operazione di imbarco o sbarco.
+
+Consideriamo le operazioni tipiche:
+\begin{itemize}
+    \item \textbf{Operazione 1 (circa 50 al giorno):} inserimento o rimozione di un container da un volo;
+    \item \textbf{Operazione 2 (circa 2\,000 al giorno):} consultazione del peso totale del carico di un volo.
+\end{itemize}
+
+Assumiamo costi di accesso: L=1, S=2.
+
+I volumi rilevanti del sistema sono:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Concetto & Tipo & Volume \\
+\hline
+Volo & E & 8\,000 \\
+Container & E & 40\,000 \\
+Imbarco\_Merce & R & 60\,000 \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Con ridondanza.}
+L'operazione di aggiornamento del peso totale richiede:
+\begin{itemize}
+    \item aggiornare \texttt{Imbarco\_Merce} (1S);
+    \item leggere \texttt{Volo} (1L) e aggiornarne \textit{peso\_totale\_carico} (1S).
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Imbarco\_Merce & R & 1 & S $\times$ 50 \\
+Volo & E & 1 & L $\times$ 50 \\
+Volo & E & 1 & S $\times$ 50 \\
+\hline
+\end{tabular}
+\caption{Operazione 1 con ridondanza: aggiornamento del peso totale.}
+\end{table}
+
+Per la consultazione del peso totale:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Volo & E & 1 & L $\times$ 2\,000 \\
+\hline
+\end{tabular}
+\caption{Operazione 2 con ridondanza: lettura diretta del valore.}
+\end{table}
+
+\[
+\text{Costo giornaliero} =
+50 \times (2 + 1 + 2) + 2\,000 \times 1
+= 250 + 2\,000 = 2\,250.
+\]
+
+\paragraph{Senza ridondanza.}
+Ogni consultazione del peso richiede di:
+\begin{itemize}
+    \item leggere il volo (1L);
+    \item leggere tutti i container imbarcati: in media 8 per volo (8L);
+    \item effettuare una somma su 20 valori.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Imbarco\_Merce & R & 1 & S $\times$ 50 \\
+\hline
+\end{tabular}
+\caption{Operazione 1 senza ridondanza.}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Concetto & Costrutto & Accessi & Tipo \\
+\hline
+Volo & E & 1 & L $\times$ 2\,000 \\
+Imbarco\_Merce & R & 8 & L $\times$ 2\,000 \\
+\hline
+\end{tabular}
+\caption{Operazione 2 senza ridondanza: scansione dei container imbarcati.}
+\end{table}
+
+Costo giornaliero senza ridondanza:
+\[
+50 \times 2 + 2\,000 \times (1 + 8) = 18\,100.
+\]
+
+\paragraph{Conclusione.}
+Senza ridondanza, la consultazione comporta circa 42\,000 accessi al giorno, dovuti
+alla scansione dei container imbarcati. Con la ridondanza il costo scende a circa
+2\,250 accessi. L’analisi indica chiaramente che conviene mantenere l’attributo 
+ridondante \textit{peso\_totale\_carico} nell’entità \texttt{Volo}.
+
+
+\subsection{Eliminazione delle Generalizzazioni}
+
+In questa parte si eliminano le generalizzazioni individuate 
+nella fase di Progettazione Concettuale. L'obiettivo è  arrivare a uno schema che non contenga costrutti che non si possano tradurre in un modello relazionale, in modo da ridurre gli attributi che non si possono applicare e garantire una gestione corretta delle chiavi e dei vincoli di integrità.
+
+Le generalizzazioni presenti nel nostro schema riguardano:
+\begin{itemize}
+    \item \textbf{Aeroporto}, suddiviso in Hub Internazionale, Regionale e Base Militare;
+    \item \textbf{Aereo}, suddiviso in Aereo di Linea, Aereo Cargo, Aereo Privato e Aereo Militare;
+    \item \textbf{Personale}, suddiviso in Pilota, Controllore di Volo e Manutentore;
+    \item \textbf{Log di Transito}, suddiviso in Log Dati di Volo, Log Sensori GPS e Log Errori.
+\end{itemize}
+
+Le modalità con cui tali generalizzazioni vengono eliminate sono descritte qui di seguito.
+
+\paragraph{Aeroporto}
+La generalizzazione su Aeroporto è totale e disgiunta, dato che ogni aeroporto deve appartenere esclusivamente a una delle tre categorie previste. Sebbene, in teoria, sarebbe ideale accorpare gli attributi del padre nelle entità figlie, questo non è praticabile in questo contesto. L’entità Aeroporto è coinvolta in molte relazioni (Partenza, Arrivo, Presidio, Origine, Destinazione, Disponibilità), e toglierla comporterebbe la necessità di triplicare tutte queste associazioni, rendendo tutto molto più complesso.
+Dunque l’entità padre Aeroporto si collega alle tre entità figlie tramite relazioni di identificazione (IS\_REGIONALE, IS\_HUB, IS\_MILITARE). Ogni aeroporto conserva gli attributi comuni nel padre, mentre quelli specifici vanno nelle rispettive entità figlie. Questa soluzione centralizza le relazioni, semplificando le query, ma richiede l’implementazione di vincoli applicativi per assicurare che ogni aeroporto appartenga a una e solo a una categoria.
+
+\paragraph{Aereo}
+La generalizzazione su Aereo è totale e sovrapposta, in quanto un aereo può avere più ruoli operativi simultaneamente (per esempio, un aereo cargo può essere utilizzato anche come velivolo militare). Proprio per questa sovrapposizione, è fondamentale mantenere l’entità padre Aereo, che contiene gli attributi comuni (matricola, data\_immatricolazione, ore\_volo\_accumulate). Le specializzazioni vengono rappresentate tramite le entità separate AereoDiLinea, AereoCargo, AereoPrivato e AereoMilitare, ciascuna collegata al padre attraverso relazioni di identificazione (IS\_LINEA, IS\_CARGO, IS\_PRIVATO, IS\_MILITARE) e attraverso la matricola (che funge da chiave primaria e chiave esterna).
+Questa soluzione permette di associare un singolo aereo a più categorie contemporaneamente, inserendo la stessa matricola in più tabelle figlie, evitando duplicazioni di attributi comuni e garantendo la coerenza nei dati condivisi. Eliminare il padre porterebbe a ridondanze e complessità nella gestione di aerei multi-ruolo.
+
+\paragraph{Personale}
+La generalizzazione su Personale è parziale e disgiunta. Non tutti i membri del personale svolgono ruoli specializzati e ciascun dipendente può appartenere al massimo a una sola delle categorie previste (pilota, controllore o manutentore). Mantenendo l’entità padre Personale, che contiene attributi comuni a tutti (identificativo, nome, cognome, data di nascita, data di assunzione), si creano tre entità figlie: Pilota, ControlloreVolo e Manutentore, collegate al padre tramite relazioni di identificazione (IS\_PILOTA, IS\_CONTROLLORE, IS\_MANUTENTORE) e tramite l’identificativo.
+La parzialità della gerarchia richiede il mantenimento del padre, poiché ci sono membri del personale (per esempio, personale amministrativo o di supporto) che non rientrano in nessuna specializzazione. La disgiunzione assicura che nessun dipendente possa ricoprire più ruoli specializzati contemporaneamente, mantenendo separate competenze e responsabilità operative.
+
+\paragraph{Log di Transito}
+La generalizzazione su LogTransito è totale e disgiunta. Ogni rilevazione telemetrica deve appartenere obbligatoriamente a una sola delle tre categorie: GPS, dati di volo o errori. Per questa gerarchia, si adotta un approccio di accorpamento nelle entità figlie, eliminando l’entità padre e creando tre entità indipendenti: LogGPS, LogDatiVolo e LogErrori. Ognuna di queste entità contiene sia attributi comuni (id\_volo, timestamp\_rilevazione, altitudine, velocità) sia specifici per la propria tipologia (ad esempio, latitudine e longitudine per i log GPS, o codice\_errore e severità per i log di errore).
+
+\medskip
+\noindent
+Il diagramma E-R ristrutturato tiene conto di queste modifiche.
+
+
+\begin{figure}[H] 
+    \centering
+    \includegraphics[width=\textwidth]{schema_er_ristrutturato.drawio.png}
+    \caption{Diagramma Entità-Relazione Ristrutturato}
+    \label{fig:schema_er}
+\end{figure}
+
+\subsection{Schema Relazionale}
+Lo schema ristrutturato contiene esclusivamente costrutti direttamente 
+mappabili nel modello relazionale.  
+Di seguito viene riportato lo schema logico completo, dove l’asterisco (*)
+denota gli attributi che possono assumere valori nulli.
+
+\begin{itemize}
+
+% --- AEROPORTI E LOGISTICA ---
+
+\item \textbf{Aeroporto}(\underline{codice\_IATA}, nome, citta, nazione, coordinate, numero\_piste, numero\_voli\_giornalieri)
+
+\item \textbf{HubInternazionale}(\underline{codice\_IATA}, numero\_terminal)  
+\hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
+
+\item \textbf{Regionale}(\underline{codice\_IATA}, lunghezza\_max\_pista, notturno)  
+\hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
+
+\item \textbf{BaseMilitare}(\underline{codice\_IATA}, codice\_nato, livello\_sicurezza)  
+\hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
+
+\item \textbf{ProtocolloSicurezza}(\underline{id\_protocollo}, nome, descrizione*)
+
+\item \textbf{Applica}(\underline{codice\_IATA, id\_protocollo, data\_inizio})  
+\hspace{3mm} codice\_IATA $\rightarrow$ BaseMilitare.codice\_IATA
+\hspace{3mm} id\_protocollo $\rightarrow$ ProtocolloSicurezza.id\_protocollo
+
+\item \textbf{Gate}(\underline{codice\_hub}, \underline{numero\_gate}, piano, tunnel)  
+\hspace{3mm} codice\_hub $\rightarrow$ HubInternazionale.codice\_IATA
+
+\item \textbf{DivietoOperativo}(\underline{codice\_IATA}, \underline{codice\_modello})
+\hspace{3mm} codice\_IATA $\rightarrow$ Regionale.codice\_IATA
+\hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
+
+% --- TIPO AEREO E COMPONENTI ---
+
+\item \textbf{TipoAereo}(\underline{codice\_modello}, costruttore, autonomia, velocita\_crociera)
+
+\item \textbf{Componente}(\underline{codice\_modello}, \underline{numero\_parte}, descrizione)  
+\hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
+
+% --- AEREI ---
+
+\item \textbf{Aereo}(\underline{matricola}, data\_immatricolazione, ore\_volo\_accumulate, codice\_modello)  
+\hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
+
+\item \textbf{AereoDiLinea}(\underline{matricola}, wifi, intrattenimento*)  
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+\item \textbf{AereoCargo}(\underline{matricola}, peso\_carico\_max)  
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+\item \textbf{AereoPrivato}(\underline{matricola}, proprietario, servizi\_inclusi*)  
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+\item \textbf{AereoMilitare}(\underline{matricola}, codice\_missione*, ente\_operativo)  
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+% --- COMPAGNIE AEREE ---
+
+\item \textbf{CompagniaAerea}(\underline{codice}, nome, nazione, sito\_web*)
+
+\item \textbf{Possesso}(\underline{codice\_compagnia}, \underline{matricola})  
+\hspace{3mm} codice\_compagnia $\rightarrow$ CompagniaAerea.codice
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+\item \textbf{AssegnazioneGate}(\underline{codice\_compagnia}, \underline{codice\_hub}, \underline{numero\_gate})  
+\hspace{3mm} codice\_compagnia $\rightarrow$ CompagniaAerea.codice
+\hspace{3mm} (codice\_hub, numero\_gate) $\rightarrow$ Gate.codice\_hub, Gate.numero\_gate
+
+% --- PERSONALE ---
+
+\item \textbf{Personale}(\underline{id\_personale}, nome, cognome, data\_nascita, data\_assunzione)
+
+\item \textbf{Pilota}(\underline{id\_personale}, numero\_licenza, ore\_volo, ultima\_visita)  
+\hspace{3mm} id\_personale $\rightarrow$ Personale.id\_personale
+
+\item \textbf{ControlloreVolo}(\underline{id\_personale}, livello\_certificazione, scadenza\_abilitazione)  
+\hspace{3mm} id\_personale $\rightarrow$ Personale.id\_personale
+
+\item \textbf{Manutentore}(\underline{id\_personale}, qualifica)  
+\hspace{3mm} id\_personale $\rightarrow$ Personale.id\_personale
+
+\item \textbf{AbilitazioneVolo}(\underline{id\_personale}, \underline{codice\_modello}, data\_conseguimento, data\_scadenza)  
+\hspace{3mm} id\_personale $\rightarrow$ Pilota.id\_personale 
+\hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
+
+% --- ROTTE E SLOT ---
+
+\item \textbf{RottaPianificata}(\underline{id\_rotta}, nome, distanza, durata\_stimata, consumo\_previsto, aeroporto\_origine, aeroporto\_destinazione)  
+\hspace{3mm} aeroporto\_origine $\rightarrow$ Aeroporto.codice\_IATA
+\hspace{3mm} aeroporto\_destinazione $\rightarrow$ Aeroporto.codice\_IATA
+
+\item \textbf{FasciaOraria}(\underline{id\_slot}, codice\_IATA, ora\_inizio, ora\_fine, tipologia)  
+\hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
+
+% --- VOLI ---
+
+\item \textbf{Volo}(\underline{id\_volo}, codice\_volo, data\_ora\_programmata, 
+    data\_ora\_effettiva*, stato, peso\_totale\_carico, matricola, 
+    aeroporto\_partenza, aeroporto\_arrivo, id\_rotta*, 
+    slot\_decollo*, slot\_atterraggio*)  
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola  
+\hspace{3mm} aeroporto\_partenza $\rightarrow$ Aeroporto.codice\_IATA
+\hspace{3mm} aeroporto\_arrivo $\rightarrow$ Aeroporto.codice\_IATA
+\hspace{3mm} id\_rotta $\rightarrow$ RottaPianificata.id\_rotta
+\hspace{3mm} slot\_decollo $\rightarrow$ FasciaOraria.id\_slot
+\hspace{3mm} slot\_atterraggio $\rightarrow$ FasciaOraria.id\_slot
+
+% --- EQUIPAGGIO E CONTROLLO ---
+
+\item \textbf{Equipaggio}(\underline{id\_personale}, \underline{id\_volo}, ruolo, ore\_servizio)  
+\hspace{3mm} id\_personale $\rightarrow$ Personale.id\_personale
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
+
+\item \textbf{Monitoraggio}(\underline{id\_personale}, \underline{id\_volo}, fase\_volo)  
+\hspace{3mm} id\_personale $\rightarrow$ ControlloreVolo.id\_personale
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
+
+\item \textbf{Presidio}(\underline{id\_personale}, \underline{codice\_IATA}, \underline{data\_inizio}, data\_fine*, settore)  
+\hspace{3mm} id\_personale $\rightarrow$ ControlloreVolo.id\_personale
+\hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
+
+% --- CONTAINER E MERCI ---
+
+\item \textbf{Container}(\underline{codice\_container}, peso\_tara, tipologia)
+
+\item \textbf{ImbarcoMerce}(\underline{id\_volo}, \underline{codice\_container}, peso\_registrato, data\_imbarco, contenuto*)  
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo  
+\hspace{3mm} codice\_container $\rightarrow$ Container.codice\_container
+
+% --- CLASSI PASSEGGERI ---
+
+\item \textbf{ClassePasseggeri}(\underline{id\_classe}, nome\_commerciale, priorita\_imbarco, descrizione)
+
+\item \textbf{Configurazione}(\underline{matricola}, \underline{id\_classe}, numero\_posti, spazio\_gambe)  
+\hspace{3mm} matricola $\rightarrow$ AereoDiLinea.matricola
+\hspace{3mm} id\_classe $\rightarrow$ ClassePasseggeri.id\_classe
+
+\item \textbf{ServizioAggiuntivo}(\underline{id\_classe}, \underline{nome\_servizio}, descrizione*)  
+\hspace{3mm} id\_classe $\rightarrow$ ClassePasseggeri.id\_classe
+
+% --- LOG E MANUTENZIONE ---
+
+\item \textbf{LogGPS}(\underline{id\_volo}, \underline{timestamp\_rilevazione}, altitudine, velocita, latitudine, longitudine)  
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
+
+\item \textbf{LogDatiVolo}(\underline{id\_volo}, \underline{timestamp\_rilevazione}, altitudine, velocita, livello\_carburante, pressione, temperatura)  
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
+
+\item \textbf{LogErrori}(\underline{id\_volo}, \underline{timestamp\_rilevazione}, altitudine, velocita, codice\_errore, messaggio*, severita)  
+\hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
+
+\item \textbf{GestioneAlert}(\underline{id\_personale}, \underline{id\_volo}, \underline{timestamp\_rilevazione}, stato, data\_presa\_carico*)  
+\hspace{3mm} id\_personale $\rightarrow$ Manutentore.id\_personale
+\hspace{3mm} (id\_volo, timestamp\_rilevazione) $\rightarrow$ LogErrori(id\_volo, timestamp\_rilevazione)
+
+\item \textbf{CertificazioneManutenzione}(\underline{id\_personale}, \underline{matricola}, \underline{data\_certificazione}, data\_scadenza)  
+\hspace{3mm} id\_personale $\rightarrow$ Manutentore.id\_personale
+\hspace{3mm} matricola $\rightarrow$ Aereo.matricola
+
+\end{itemize}
+
+
+\end{document}
