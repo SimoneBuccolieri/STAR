@@ -126,7 +126,7 @@ La Figura 1 mostra il diagramma Entità-Relazione (E-R) creato sulla base dell'a
 \subsection*{Vincoli non rappresentabili nello schema E-R}
 
 Alcune regole del dominio non possono essere rappresentate direttamente nel diagramma
-E--R, ma costituiscono comunque vincoli fondamentali del sistema. Tra i principali:
+E-R, ma costituiscono comunque vincoli fondamentali del sistema. Tra i principali:
 
 \begin{itemize}
 
@@ -164,9 +164,10 @@ PrenotazioneDecollo(v, s) \wedge FasciaOraria(s, a) \Rightarrow Partenza(v) = a
 
 \end{itemize}
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
-\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Entità} & \textbf{Descrizione} & \textbf{Attributi} & \textbf{Identificatore} \\
 \hline
@@ -255,42 +256,43 @@ ServizioAggiuntivo& Servizi associati alle classi & nome\_servizio, descrizione&
 CompagniaAerea & Operatore aeroportuale & codice, nome, nazione, sito\_web& codice\\
 \hline
 
-\end{tabular}
+\end{tabular}}
 \caption{Entità individuate dall’analisi dei requisiti, con attributi e identificatori.}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
-\begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Relazione} & \textbf{Descrizione} & \textbf{Componente} & \textbf{Attributi} \\
 \hline
 
-Possiede & Un Hub Internazionale possiede uno o più gate & Hub internazionale, Gate & -- \\
+Possiede & Un Hub Internazionale possiede uno o più gate & Hub internazionale, Gate &  \\
 \hline
 
 Applica & Una base militare applica protocolli di sicurezza & BaseMilitare, ProtocolloSicurezza & data\_inizio\_validità \\
 \hline
 
-DivietoOperativo & Un aeroporto regionale vieta certi tipi di aereo & Regionale, TipoAereo & -- \\
+DivietoOperativo & Un aeroporto regionale vieta certi tipi di aereo & Regionale, TipoAereo &  \\
 \hline
 
-Esecuzione & Un aereo esegue un volo & Aereo, Volo & -- \\
+Esecuzione & Un aereo esegue un volo & Aereo, Volo &  \\
 \hline
 
-Partenza & Un volo parte da un aeroporto & Volo, Aeroporto & -- \\
+Partenza & Un volo parte da un aeroporto & Volo, Aeroporto &  \\
 \hline
 
-Arrivo & Un volo arriva in un aeroporto & Volo, Aeroporto & -- \\
+Arrivo & Un volo arriva in un aeroporto & Volo, Aeroporto &  \\
 \hline
 
-AssegnazioneRotta & Una rotta viene associata a un volo & RottaPianificata, Volo & -- \\
+AssegnazioneRotta & Una rotta viene associata a un volo & RottaPianificata, Volo &  \\
 \hline
 
-PrenotazioneDecollo & Un volo prenota uno slot di decollo & Volo, FasciaOraria & -- \\
+PrenotazioneDecollo & Un volo prenota uno slot di decollo & Volo, FasciaOraria &  \\
 \hline
 
-PrenotazioneAtterraggio & Un volo prenota uno slot di atterraggio & Volo, FasciaOraria & -- \\
+PrenotazioneAtterraggio & Un volo prenota uno slot di atterraggio & Volo, FasciaOraria &  \\
 \hline
 
 Equipaggio & Piloti e assistenti operano su un volo & Personale, Volo & ruolo, ore\_servizio \\
@@ -302,7 +304,7 @@ Monitoraggio & Un controllore supervisiona un volo & ControlloreVolo, Volo & fas
 Presidio & Un controllore è assegnato a un aeroporto & ControlloreVolo, Aeroporto & settore, data\_fine, data\_inizio \\
 \hline
 
-Traccia & Un volo genera log di transito & Volo, LogTransito & -- \\
+Traccia & Un volo genera log di transito & Volo, LogTransito &  \\
 \hline
 
 GestioneAlert & Un manutentore gestisce un log di errore & Manutentore, LogErrori & stato\_ticket, data\_presa\_carico \\
@@ -314,37 +316,37 @@ ImbarcoMerce & Un container è imbarcato su un volo & Container, Volo & peso\_re
 Configurazione & Una classe passeggeri è configurata su un aereo di linea & AereoDiLinea, ClassePasseggeri & numero\_posti, spazio\_gambe \\
 \hline
 
-Dotazione & Componenti tecniche installate su un modello di aereo & TipoAereo, Componente & -- \\
+Dotazione & Componenti tecniche installate su un modello di aereo & TipoAereo, Componente &  \\
 \hline
 
 AbilitazioneVolo & Un pilota è abilitato a un modello di aereo & Pilota, TipoAereo & data\_conseguimento, data\_scadenza \\
 \hline
 
-AssegnazioneGate & Una compagnia aerea ha uno o più gate assegnati & CompagniaAerea, Gate & -- \\
+AssegnazioneGate & Una compagnia aerea ha uno o più gate assegnati & CompagniaAerea, Gate &  \\
 \hline
 
-Possesso & Una compagnia possiede uno o più aerei & CompagniaAerea, Aereo & -- \\
+Possesso & Una compagnia possiede uno o più aerei & CompagniaAerea, Aereo &  \\
 \hline
 
 CertificazioneManutenzione & Un manutentore certifica un aereo dopo un intervento & Manutentore, Aereo & data\_scadenza \\
 \hline
 
-Modello & Un aereo è associato a un modello tecnico & Aereo, TipoAereo & -- \\
+Modello & Un aereo è associato a un modello tecnico & Aereo, TipoAereo &  \\
 \hline
 
-Offre & Una classe passeggeri include un servizio aggiuntivo & ClassePasseggeri, ServizioAggiuntivo & -- \\
+Offre & Una classe passeggeri include un servizio aggiuntivo & ClassePasseggeri, ServizioAggiuntivo &  \\
 \hline
 
-Origine & Una rotta pianificata ha un aeroporto di partenza & RottaPianificata, Aeroporto & -- \\
+Origine & Una rotta pianificata ha un aeroporto di partenza & RottaPianificata, Aeroporto &  \\
 \hline
 
-Destinazione & Una rotta pianificata ha un aeroporto di arrivo & RottaPianificata, Aeroporto & -- \\
+Destinazione & Una rotta pianificata ha un aeroporto di arrivo & RottaPianificata, Aeroporto &  \\
 \hline
 
-Disponibilità & Una fascia oraria è disponibile in un aeroporto & FasciaOraria, Aeroporto & -- \\
+Disponibilità & Una fascia oraria è disponibile in un aeroporto & FasciaOraria, Aeroporto &  \\
 \hline
 
-\end{tabular}
+\end{tabular}}
 \caption{Relazioni individuate nello schema concettuale, con componenti e attributi.}
 \end{table}
 
@@ -648,7 +650,6 @@ denota gli attributi che possono assumere valori nulli.
 
 \begin{itemize}
 
-% --- AEROPORTI E LOGISTICA ---
 
 \item \textbf{Aeroporto}(\underline{codice\_IATA}, nome, citta, nazione, coordinate, numero\_piste, numero\_voli\_giornalieri)
 
@@ -674,14 +675,12 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} codice\_IATA $\rightarrow$ Regionale.codice\_IATA
 \hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
 
-% --- TIPO AEREO E COMPONENTI ---
 
 \item \textbf{TipoAereo}(\underline{codice\_modello}, costruttore, autonomia, velocita\_crociera)
 
 \item \textbf{Componente}(\underline{codice\_modello}, \underline{numero\_parte}, descrizione)  
 \hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
 
-% --- AEREI ---
 
 \item \textbf{Aereo}(\underline{matricola}, data\_immatricolazione, ore\_volo\_accumulate, codice\_modello)  
 \hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
@@ -698,7 +697,6 @@ denota gli attributi che possono assumere valori nulli.
 \item \textbf{AereoMilitare}(\underline{matricola}, codice\_missione*, ente\_operativo)  
 \hspace{3mm} matricola $\rightarrow$ Aereo.matricola
 
-% --- COMPAGNIE AEREE ---
 
 \item \textbf{CompagniaAerea}(\underline{codice}, nome, nazione, sito\_web*)
 
@@ -710,7 +708,6 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} codice\_compagnia $\rightarrow$ CompagniaAerea.codice
 \hspace{3mm} (codice\_hub, numero\_gate) $\rightarrow$ Gate.codice\_hub, Gate.numero\_gate
 
-% --- PERSONALE ---
 
 \item \textbf{Personale}(\underline{id\_personale}, nome, cognome, data\_nascita, data\_assunzione)
 
@@ -727,7 +724,6 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} id\_personale $\rightarrow$ Pilota.id\_personale 
 \hspace{3mm} codice\_modello $\rightarrow$ TipoAereo.codice\_modello
 
-% --- ROTTE E SLOT ---
 
 \item \textbf{RottaPianificata}(\underline{id\_rotta}, nome, distanza, durata\_stimata, consumo\_previsto, aeroporto\_origine, aeroporto\_destinazione)  
 \hspace{3mm} aeroporto\_origine $\rightarrow$ Aeroporto.codice\_IATA
@@ -736,7 +732,6 @@ denota gli attributi che possono assumere valori nulli.
 \item \textbf{FasciaOraria}(\underline{id\_slot}, codice\_IATA, ora\_inizio, ora\_fine, tipologia)  
 \hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
 
-% --- VOLI ---
 
 \item \textbf{Volo}(\underline{id\_volo}, codice\_volo, data\_ora\_programmata, 
     data\_ora\_effettiva*, stato, peso\_totale\_carico, matricola, 
@@ -749,7 +744,6 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} slot\_decollo $\rightarrow$ FasciaOraria.id\_slot
 \hspace{3mm} slot\_atterraggio $\rightarrow$ FasciaOraria.id\_slot
 
-% --- EQUIPAGGIO E CONTROLLO ---
 
 \item \textbf{Equipaggio}(\underline{id\_personale}, \underline{id\_volo}, ruolo, ore\_servizio)  
 \hspace{3mm} id\_personale $\rightarrow$ Personale.id\_personale
@@ -763,7 +757,6 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} id\_personale $\rightarrow$ ControlloreVolo.id\_personale
 \hspace{3mm} codice\_IATA $\rightarrow$ Aeroporto.codice\_IATA
 
-% --- CONTAINER E MERCI ---
 
 \item \textbf{Container}(\underline{codice\_container}, peso\_tara, tipologia)
 
@@ -771,7 +764,6 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo  
 \hspace{3mm} codice\_container $\rightarrow$ Container.codice\_container
 
-% --- CLASSI PASSEGGERI ---
 
 \item \textbf{ClassePasseggeri}(\underline{id\_classe}, nome\_commerciale, priorita\_imbarco, descrizione)
 
@@ -782,7 +774,6 @@ denota gli attributi che possono assumere valori nulli.
 \item \textbf{ServizioAggiuntivo}(\underline{id\_classe}, \underline{nome\_servizio}, descrizione*)  
 \hspace{3mm} id\_classe $\rightarrow$ ClassePasseggeri.id\_classe
 
-% --- LOG E MANUTENZIONE ---
 
 \item \textbf{LogGPS}(\underline{id\_volo}, \underline{timestamp\_rilevazione}, altitudine, velocita, latitudine, longitudine)  
 \hspace{3mm} id\_volo $\rightarrow$ Volo.id\_volo
