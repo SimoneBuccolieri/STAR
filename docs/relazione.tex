@@ -8,6 +8,19 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstdefinestyle{sqlstyle}{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines
+}
+
 \begin{document}
 \section{Abstract}
 Il progetto \textbf{STAR} (Sistema di Tracciamento dello Spazio Aereo e Rotte) è un Sistema Informativo pensato per gestire e monitorare, in modo integrato, il traffico aereo sia civile che militare. Questo sistema segue tutte le fasi operative di un volo, dalla pianificazione della rotta e prenotazione degli slot negli aeroporti, fino alla storicizzazione delle operazioni effettuate e alla gestione dei dati telemetrici
@@ -789,6 +802,126 @@ denota gli attributi che possono assumere valori nulli.
 \hspace{3mm} matricola $\rightarrow$ Aereo.matricola
 
 \end{itemize}
+
+\section{Database PostgreSQL e Query}
+
+\subsection*{Query 1 – Piloti con il maggior numero di modelli di aereo abilitati}
+
+La seguente query determina quanti modelli di aereo diversi è abilitato a pilotare
+ciascun pilota. La query utilizza \texttt{GROUP BY}, funzioni di aggregazione e un join 
+su tre tabelle (\texttt{Personale}, \texttt{Pilota}, \texttt{AbilitazioneVolo}).
+
+\begin{lstlisting}[style=sqlstyle]
+SELECT 
+    p.id_personale,
+    p.nome,
+    p.cognome,
+    COUNT(a.codice_modello) AS numero_modelli
+FROM Personale p
+JOIN Pilota pl ON p.id_personale = pl.id_personale
+JOIN AbilitazioneVolo a ON pl.id_personale = a.id_personale
+GROUP BY p.id_personale, p.nome, p.cognome
+ORDER BY numero_modelli DESC;
+\end{lstlisting}
+
+\subsection*{Query 2 – Aeroporti con più traffico totale (arrivi + partenze)}
+
+La query calcola il numero complessivo di partenze e arrivi per ciascun aeroporto,
+valutando così il traffico totale. Utilizza join duplicati sulla tabella \texttt{Volo} e
+aggregazioni.
+
+\begin{lstlisting}[style=sqlstyle]
+SELECT 
+    a.codice_IATA,
+    a.nome,
+    COUNT(v1.id_volo) AS partenze,
+    COUNT(v2.id_volo) AS arrivi,
+    COUNT(v1.id_volo) + COUNT(v2.id_volo) AS traffico_totale
+FROM star.Aeroporto a
+LEFT JOIN star.Volo v1 ON v1.aeroporto_partenza = a.codice_IATA
+LEFT JOIN star.Volo v2 ON v2.aeroporto_arrivo = a.codice_IATA
+GROUP BY a.codice_IATA, a.nome
+ORDER BY traffico_totale DESC;
+\end{lstlisting}
+
+\subsection*{Query 3 – Compagnie con il numero totale di aerei posseduti}
+
+La query utilizza \texttt{GROUP BY} e l'operatore \texttt{HAVING} per selezionare
+solo le compagnie che possiedono più di un aereo.
+
+\begin{lstlisting}[style=sqlstyle]
+SELECT 
+    c.codice_compagnia,
+    c.nome,
+    COUNT(p.matricola) AS numero_aerei
+FROM star.CompagniaAerea c
+JOIN star.Possesso p ON c.codice_compagnia = p.codice_compagnia
+GROUP BY c.codice_compagnia, c.nome
+HAVING COUNT(p.matricola) > 1
+ORDER BY numero_aerei DESC;
+\end{lstlisting}
+
+\subsection*{Query 4 – Velocità media reale di ogni volo con almeno due rilevazioni GPS}
+
+Questa query calcola la velocità media dei voli utilizzando i dati registrati dai
+sensori GPS. Vengono considerati solo i voli con almeno due rilevazioni.
+
+\begin{lstlisting}[style=sqlstyle]
+SELECT 
+    v.id_volo,
+    v.codice_volo,
+    AVG(l.velocita) AS velocita_media
+FROM star.Volo v
+JOIN star.LogGPS l ON v.id_volo = l.id_volo
+GROUP BY v.id_volo, v.codice_volo
+HAVING COUNT(l.timestamp_rilevazione) >= 2
+ORDER BY velocita_media DESC;
+\end{lstlisting}
+
+\subsection*{Query 5 – Aerei più utilizzati: totale ore di volo reali per aereo}
+
+La query calcola le ore totali di volo accumulate da ogni aereo sulla base dei
+log GPS (differenza tra prima e ultima rilevazione). L’aggregazione utilizza
+funzioni temporali di PostgreSQL.
+
+\begin{lstlisting}[style=sqlstyle]
+SELECT
+    a.matricola,
+    t.codice_modello,
+    EXTRACT(EPOCH FROM (MAX(l.timestamp_rilevazione) - MIN(l.timestamp_rilevazione))) / 3600
+        AS ore_volo_registrate
+FROM Aereo a
+JOIN star.TipoAereo t ON a.codice_modello = t.codice_modello
+JOIN star.LogGPS l ON l.id_volo IN (
+    SELECT id_volo FROM star.Volo WHERE matricola = a.matricola
+)
+GROUP BY a.matricola, t.codice_modello
+ORDER BY ore_volo_registrate DESC;
+\end{lstlisting}
+
+\subsection*{Indice per l'ottimizzazione della query sul traffico aeroportuale}
+
+L’indice è stato introdotto per ottimizzare la query che calcola il traffico
+totale (arrivi + partenze) per ciascun aeroporto. In questa query, gli
+attributi \texttt{aeroporto\_partenza} e \texttt{aeroporto\_arrivo} della tabella
+\texttt{Volo} sono al centro delle operazioni di raggruppamento e dei due join
+che collegano i voli agli aeroporti.
+
+\begin{lstlisting}[style=sqlstyle]
+CREATE INDEX idx_volo_partenza ON Volo(aeroporto_partenza);
+CREATE INDEX idx_volo_arrivo   ON Volo(aeroporto_arrivo);
+\end{lstlisting}
+
+La scelta di due indici dedicati consente a PostgreSQL di ridurre
+significativamente il costo dei join, evitando una doppia scansione completa
+della tabella \texttt{Volo}. In presenza degli indici, il planner può infatti
+eseguire ricerche mirate sulle tuple rilevanti e calcolare le aggregazioni
+(\texttt{COUNT}) quasi interamente tramite index scan, minimizzando l’accesso
+alla tabella principale. Ciò garantisce un miglioramento sostanziale nelle
+query analitiche sul traffico aeroportuale.
+
+
+
 
 
 \end{document}
